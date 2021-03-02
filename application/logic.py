@@ -7,10 +7,12 @@ class MessageTarget(ABC):
         self.params = params
         self.message = message
 
-    def template_method(self):
+    def process_message(self):
         self.get_params_and_message()
-        if self.validate():
+        if not self.validate():
             self.send_message()
+            return None
+        return self.validate()
 
     @abstractmethod
     def process_params_and_message(self):
